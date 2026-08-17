@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
+
+:root {
+  --navy: #14213D;
+  --navy-light: #1F3060;
+  --gold: #FCA311;
+  --bg: #F7F8FA;
+  --surface: #FFFFFF;
+  --border: #E4E7ED;
+  --text: #14213D;
+  --text-muted: #6B7280;
+  --danger: #DC2626;
+  --success: #16A34A;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3 { font-family: 'Poppins', sans-serif; margin: 0; }
+
+.mono { font-family: 'IBM Plex Mono', monospace; }
+
+.layout { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: 240px;
+  background: var(--navy);
+  color: #fff;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar .brand {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  padding: 0 12px 20px;
+  border-bottom: 2px dashed rgba(255,255,255,0.15);
+  margin-bottom: 16px;
+}
+
+.sidebar a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sidebar a:hover, .sidebar a.active {
+  background: var(--navy-light);
+  color: #fff;
+}
+
+.sidebar a.active { border-left: 3px solid var(--gold); }
+
+.main { flex: 1; padding: 28px 32px; }
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+.stat-card .label { font-size: 13px; color: var(--text-muted); }
+.stat-card .value { font-family: 'IBM Plex Mono', monospace; font-size: 26px; font-weight: 600; margin-top: 4px; }
+
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 14px; }
+th { color: var(--text-muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-primary { background: var(--navy); color: #fff; }
+.btn-primary:hover { background: var(--navy-light); }
+.btn-gold { background: var(--gold); color: var(--navy); }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-ghost { background: transparent; color: var(--navy); border: 1px solid var(--border); }
+
+input, select {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+}
+
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 5px; color: var(--text-muted); }
+
+.badge { padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.badge.active { background: #DCFCE7; color: var(--success); }
+.badge.inactive { background: #FEE2E2; color: var(--danger); }
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--navy);
+  background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0 2px, transparent 2px 6px);
+}
+
+.login-card {
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 40px 36px;
+  width: 360px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+}
+
+.login-card h1 { font-size: 22px; margin-bottom: 4px; }
+.login-card p.sub { color: var(--text-muted); font-size: 13px; margin-bottom: 24px; }
+.error-text { color: var(--danger); font-size: 13px; margin-bottom: 12px; }
+
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(20,33,61,0.5);
+  display: flex; align-items: center; justify-content: center; z-index: 50;
+}
+
+.modal {
+  background: #fff; border-radius: var(--radius); padding: 24px;
+  width: 420px; max-height: 90vh; overflow-y: auto;
+}
+
+.toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 12px; }
+.toolbar input { max-width: 280px; }
