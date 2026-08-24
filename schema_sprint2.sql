@@ -1,0 +1,64 @@
+USE POS_DigitalPayment;
+GO
+
+ALTER TABLE Products ADD QuantityOnHand INT NOT NULL DEFAULT 0;
+ALTER TABLE Products ADD ReorderLevel INT NOT NULL DEFAULT 10;
+
+CREATE TABLE Suppliers (
+    SupplierID INT IDENTITY(1,1) PRIMARY KEY,
+    SupplierName NVARCHAR(150) NOT NULL,
+    ContactPerson NVARCHAR(100),
+    Phone NVARCHAR(20),
+    Email NVARCHAR(100),
+    Address NVARCHAR(255),
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE()
+);
+
+CREATE TABLE PurchaseOrders (
+    POID INT IDENTITY(1,1) PRIMARY KEY,
+    SupplierID INT NOT NULL,
+    Status NVARCHAR(20) NOT NULL DEFAULT 'Pending',
+    OrderDate DATETIME NOT NULL DEFAULT GETDATE(),
+    ReceivedDate DATETIME NULL,
+    UserID INT NOT NULL,
+    Notes NVARCHAR(255),
+    FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+CREATE TABLE PurchaseOrderItems (
+    POItemID INT IDENTITY(1,1) PRIMARY KEY,
+    POID INT NOT NULL,
+    ProductID INT NOT NULL,
+    Quantity INT NOT NULL,
+    UnitCost DECIMAL(12,2) NOT NULL,
+    ReceivedQuantity INT NOT NULL DEFAULT 0,
+    FOREIGN KEY (POID) REFERENCES PurchaseOrders(POID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+
+CREATE TABLE PurchaseReturns (
+    ReturnID INT IDENTITY(1,1) PRIMARY KEY,
+    POID INT NOT NULL,
+    ProductID INT NOT NULL,
+    Quantity INT NOT NULL,
+    Reason NVARCHAR(255),
+    UserID INT NOT NULL,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    FOREIGN KEY (POID) REFERENCES PurchaseOrders(POID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+CREATE TABLE StockMovements (
+    MovementID INT IDENTITY(1,1) PRIMARY KEY,
+    ProductID INT NOT NULL,
+    MovementType NVARCHAR(20) NOT NULL,
+    Quantity INT NOT NULL,
+    Reason NVARCHAR(255),
+    TransferToLocation NVARCHAR(100) NULL,
+    UserID INT NOT NULL,
+    CreatedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
